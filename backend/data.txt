@@ -1,0 +1,24 @@
+https://dev-0qli2zso.auth0.com/authorize?audience=test&response_type=token&client_id=kWJg8y58eZO8hMahnsw63XRgX4SaFYcC&redirect_uri=https://127.0.0.1/headers
+
+
+
+https://dev-0qli2zso.auth0.com/v2/logout?client_id=kWJg8y58eZO8hMahnsw63XRgX4SaFYcC&returnTo=https://127.0.0.1/logout-test
+
+####################################################################### Manager#########################################################
+https://127.0.0.1/headers#access_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlZob0xHcW9yNEZ4WFJBLXpiRHUwViJ9.eyJpc3MiOiJodHRwczovL2Rldi0wcWxpMnpzby5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVkMTE3NGM5MWRkNDEwYzBkNGU2NWYwIiwiYXVkIjoidGVzdCIsImlhdCI6MTU5MDc2MTMwMCwiZXhwIjoxNTkwNzY4NTAwLCJhenAiOiJrV0pnOHk1OGVaTzhoTWFobnN3NjNYUmdYNFNhRlljQyIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOltdfQ.JoB6UR6Yk_Qywo3vPpUPYvfsh90UEw4Xeo2MI1eZFnIbRXME4_MbBQdp5GQD5JFKoXk5Wi-0D0DOFTNu17lsYNWmYxsUAMf4WvJPciYreV1FwFa2wvc2yWCh_xcx3DecE-zSNqz26CkbV6wUYpbfFx_rdTDn617QZfBButlbtNk6gYClsG6aUEji3YByzjuajfz6ZJ2dc6j11GhJFfszO-g9l232lLeDYrMLsG-jTRR3g21FPFI6IsRUG8KyMNIDv2S2FiwV4MtUFTluRuhicWZuRoeS9hjWUB-ccWLpb96Q_zCTHZgughl9J92AMWJF93J7Ns2KBRv7j6DQezt-3Q&expires_in=7200&token_type=Bearer
+
+
+######################################################################## Barista #################################################################
+
+https://127.0.0.1/headers#access_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlZob0xHcW9yNEZ4WFJBLXpiRHUwViJ9.eyJpc3MiOiJodHRwczovL2Rldi0wcWxpMnpzby5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVkMTE4MTUyNTQ2ZTYwYzE2YmFhODc5IiwiYXVkIjoidGVzdCIsImlhdCI6MTU5MDc2MTQ5NiwiZXhwIjoxNTkwNzY4Njk2LCJhenAiOiJrV0pnOHk1OGVaTzhoTWFobnN3NjNYUmdYNFNhRlljQyIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOltdfQ.wKotKaMHUA0uX5SJS3Y4Vwjqi5eAoClyMptMsSk1IgtrUw-W9ITMt4DO7QljpGyhYUIkgK12k1B_2t-WlNqa-IlbU1DqF9xtlIpduhmWYSThEErvCbRQRAwgS9M6ozt5x2jpitZLzMnbYx9m9EM17Q-6S1at-lXufLHvZLWN2hW9GBCQ6OeO7trFwtEVyKXhxQHTMSQKsumSUKrnI0J_X5ighpFpp47YTK-WmgOFOhYpGoC3iSmx8pV2hpekflbWTbnCjqi8CzhN5wP5scWeoMi1Hlzhl21EZyfQl1Tlh9FY-awewKOkR3uptt-Ps59bGe3Q-69KjATKry1vaXzZ4w&expires_in=7200&token_type=Bearer
+
+
+######################################################################
+
+
+
+
+
+
+
+
