@@ -96,7 +96,7 @@ implement endpoint
 
 
 @app.route('/drinks', methods=['POST'])
-@requires_auth(permission='get:drinks-detail')
+@requires_auth(permission='post:drinks')
 def create_drink(is_authenticated):
     print(request.get_json())
     if not request.get_json() or not request.get_json()['title'] or not request.get_json()['recipe']:
