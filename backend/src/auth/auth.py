@@ -109,7 +109,10 @@ def check_permissions(permission, payload):
 def verify_decode_jwt(token):
     jsonurl = urlopen("https://" + AUTH0_DOMAIN + "/.well-known/jwks.json")
     jwks = json.loads(jsonurl.read())
-    unverified_header = jwt.get_unverified_header(token)
+    try:
+        unverified_header = jwt.get_unverified_header(token)
+    except:
+        abort(401)
     rsa_key = {}
     for key in jwks["keys"]:
         if key["kid"] == unverified_header["kid"]:

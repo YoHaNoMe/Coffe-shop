@@ -21,7 +21,7 @@ uncomment the following line to initialize the datbase
 
 # ROUTES
 '''
-@TODO (Completed) 
+@TODO (Completed)
 implement endpoint
     GET /drinks
         it should be a public endpoint
@@ -46,7 +46,7 @@ def get_all_drinks():
 
 
 '''
-@TODO (Completed) 
+@TODO (Completed)
 implement endpoint
     GET /drinks-detail
         it should require the 'get:drinks-detail' permission
@@ -74,7 +74,7 @@ def get_drink_details(is_authenticated):
 
 
 '''
-@TODO (Completed) 
+@TODO (Completed)
 implement endpoint
     POST /drinks
         it should create a new row in the drinks table
@@ -109,7 +109,7 @@ def create_drink(is_authenticated):
 
 
 '''
-@TODO (Completed) 
+@TODO (Completed)
 implement endpoint
     PATCH /drinks/<id>
         where <id> is the existing model id
@@ -177,6 +177,23 @@ def update_drink_detail(is_authenticated, drink_id):
     returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
         or appropriate status code indicating reason for failure
 '''
+@app.route('/drinks/<int:drink_id>', methods=['DELETE'])
+@requires_auth(permission='delete:drinks')
+def delete_drink(is_authenticated, drink_id):
+    print(drink_id)
+    drink = Drink.query.get(drink_id)
+    if not drink:
+        abort(404)
+    try:
+        print(drink)
+        drink.delete()
+        return jsonify({
+            "deleted": drink_id,
+            "success": True,
+            "status_code": 200
+        })
+    except:
+        abort(422)
 
 ## Error Handling
 '''
@@ -192,6 +209,14 @@ def unprocessable(error):
         "message": "unprocessable"
     }), 422
 
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({
+        "success": False,
+        "error": 404,
+        "message": "Not Found"
+    })
 
 # @app.errorhandler(401)
 # def unauthorized(e):
