@@ -48,18 +48,18 @@ class Drink(db.Model):
     title = Column(String(80), unique=True)
     # the ingredients blob - this stores a lazy json blob
     # the required datatype is [{'color': string, 'name':string, 'parts':number}]
-    recipe = Column(String(80), nullable=False)
+    recipe = Column(JSON, nullable=False)
 
     '''
     short()
         short form representation of the Drink model
     '''
     def short(self):
-        recipe_json = json.loads(self.recipe.replace("'", "\""))
+        # recipe_json = json.loads(self.recipe.replace("'", "\""))
         return {
             'id': self.id,
             'title': self.title,
-            'recipe': {'color': recipe_json['color'], 'parts': recipe_json['parts']}
+            'recipe': {'color': self.recipe['color'], 'parts': self.recipe['parts']}
         }
 
     '''
@@ -70,7 +70,7 @@ class Drink(db.Model):
         return {
             'id': self.id,
             'title': self.title,
-            'recipe': json.loads(self.recipe.replace("'", "\""))
+            'recipe': json.dumps(self.recipe)
         }
 
     '''

@@ -85,6 +85,16 @@ implement endpoint
 '''
 
 
+# {
+#     "title": "Water3",
+#     "recipe": {
+#         "name": "Water",
+#         "color": "blue",
+#         "parts": 1
+#     }
+# }
+
+
 @app.route('/drinks', methods=['POST'])
 @requires_auth(permission='get:drinks-detail')
 def create_drink(is_authenticated):
@@ -95,6 +105,8 @@ def create_drink(is_authenticated):
         abort(401)
     title = request.get_json()['title']
     recipe = request.get_json()['recipe']
+    print(title, recipe)
+    print(type(title), type(recipe))
     drink = Drink(title=title, recipe=recipe)
     try:
         drink.insert()
@@ -144,12 +156,10 @@ def update_drink_detail(is_authenticated, drink_id):
         new_recipe = request.get_json()['recipe']
         # update title
         drink.title = new_title
-        # check if there is recipe to update
-        recipe_json = json.loads(new_recipe.replace("'", "\""))
         # check if recipe has the correct keys
-        if 'name' in recipe_json and 'color' in recipe_json and 'parts' in recipe_json:
+        if 'name' in new_recipe and 'color' in new_recipe and 'parts' in new_recipe:
             # check that each key has a value
-            if recipe_json['color'] and recipe_json['name'] and recipe_json['parts']:
+            if new_recipe['color'] and new_recipe['name'] and new_recipe['parts']:
                 drink.recipe = new_recipe
             else:
                 abort(400)
