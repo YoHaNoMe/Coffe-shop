@@ -9,7 +9,17 @@ from .auth.auth import AuthError, requires_auth
 
 app = Flask(__name__)
 setup_db(app)
-CORS(app)
+cors = CORS(app, resources={r'/*': {'origins': '*'}})
+
+
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Headers',
+                         'Content-Type, Authorization, true')
+    response.headers.add('Access-Control-Allow-Methods',
+                         'GET,POST,PATH,DELETE,OPTIONS')
+    return response
+
 
 '''
 @TODO (Completed)
@@ -102,9 +112,7 @@ implement endpoint
 @requires_auth(permission='post:drinks')
 def create_drink(is_authenticated):
     print(request.get_json())
-    if not request.get_json() or
-    not request.get_json()['title'] or
-    not request.get_json()['recipe']:
+    if not request.get_json() or not request.get_json()['title'] or not request.get_json()['recipe']:
         abort(400)
     if not is_authenticated:
         abort(401)
@@ -156,9 +164,7 @@ def update_drink_detail(is_authenticated, drink_id):
     if not request.get_json():
         abort(400)
     # check that title and recipe is the only data in request
-    if len(request.get_json()) == 2 and
-    request.get_json()['title'] and
-    request.get_json()['recipe']:
+    if len(request.get_json()) == 2 and request.get_json()['title'] and request.get_json()['recipe']:
         # get the title and recipe
         new_title = request.get_json()['title']
         new_recipe = request.get_json()['recipe']
