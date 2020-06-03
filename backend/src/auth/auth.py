@@ -61,8 +61,6 @@ def get_token_auth_header():
     return token
 
 
-
-
 '''
 @TODO implement check_permissions(permission, payload) method
     @INPUTS
@@ -71,8 +69,8 @@ def get_token_auth_header():
 
     it should raise an AuthError if permissions are not included in the payload
         !!NOTE check your RBAC settings in Auth0
-    it should raise an AuthError if the requested permission string is not in the payload permissions array
-    return true otherwise
+    it should raise an AuthError if the requested permission string is not in
+    the payload permissions array return true otherwise
 '''
 
 
@@ -80,7 +78,8 @@ def check_permissions(permission, payload):
     if not permission or not payload:
         raise AuthError({
             'code': 'authorization_permission_or_payload_missing',
-            'description': 'there is no permissions or there is no payload, please check that you have permission'
+            'description':
+            'no permissions or no payload, check that you have permission'
         }, 401)
     print(payload)
     permissions = payload['permissions']
@@ -90,6 +89,7 @@ def check_permissions(permission, payload):
             'description': 'you don\'t have permission to access this route'
         }, 401)
     return True
+
 
 '''
 @TODO implement verify_decode_jwt(token) method
@@ -102,7 +102,8 @@ def check_permissions(permission, payload):
     it should validate the claims
     return the decoded payload
 
-    !!NOTE urlopen has a common certificate error described here: https://stackoverflow.com/questions/50236117/scraping-ssl-certificate-verify-failed-error-for-http-en-wikipedia-org
+    !!NOTE urlopen has a common certificate error described here:
+    https://stackoverflow.com/questions/50236117/scraping-ssl-certificate-verify-failed-error-for-http-en-wikipedia-org
 '''
 
 
@@ -111,7 +112,7 @@ def verify_decode_jwt(token):
     jwks = json.loads(jsonurl.read())
     try:
         unverified_header = jwt.get_unverified_header(token)
-    except:
+    except Exception:
         abort(401)
     rsa_key = {}
     for key in jwks["keys"]:
@@ -159,8 +160,10 @@ def verify_decode_jwt(token):
 
     it should use the get_token_auth_header method to get the token
     it should use the verify_decode_jwt method to decode the jwt
-    it should use the check_permissions method validate claims and check the requested permission
-    return the decorator which passes the decoded payload to the decorated method
+    it should use the check_permissions method validate claims
+    and check the requested permission
+    return the decorator
+    which passes the decoded payload to the decorated method
 '''
 
 
