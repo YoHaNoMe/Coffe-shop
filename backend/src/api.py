@@ -9,16 +9,18 @@ from .auth.auth import AuthError, requires_auth
 
 app = Flask(__name__)
 setup_db(app)
-cors = CORS(app, resources={r'/*': {'origins': '*'}})
+CORS(app)
 
-
-@app.after_request
-def after_request(response):
-    response.headers.add('Access-Control-Allow-Headers',
-                         'Content-Type, Authorization, true')
-    response.headers.add('Access-Control-Allow-Methods',
-                         'GET,POST,PATH,DELETE,OPTIONS')
-    return response
+# cors = CORS(app, resources={r'/*': {'origins': '*'}})
+#
+#
+# @app.after_request
+# def after_request(response):
+#     response.headers.add('Access-Control-Allow-Headers',
+#                          'Content-Type, Authorization, true')
+#     response.headers.add('Access-Control-Allow-Methods',
+#                          'GET,POST,PATH,DELETE,OPTIONS')
+#     return response
 
 
 '''
@@ -111,26 +113,35 @@ implement endpoint
 @app.route('/drinks', methods=['POST'])
 @requires_auth(permission='post:drinks')
 def create_drink(is_authenticated):
-    print(request.get_json())
-    if not request.get_json() or not request.get_json()['title'] or not request.get_json()['recipe']:
+    # print(request.get_json())
+    # print(request.get_json()['title'])
+    # print(request.get_json()['recipe'])
+    if not request.get_json():
+        # print('kdasdkaskd')
+        abort(400)
+    if not request.get_json()['title'] or not request.get_json()['recipe']:
         abort(400)
     if not is_authenticated:
         abort(401)
+
     title = request.get_json()['title']
-    recipe = request.get_json()['recipe']
-    print(title, recipe)
-    print(type(title), type(recipe))
-    drink = Drink(title=title, recipe=recipe)
-    try:
-        drink.insert()
-        return jsonify({
-          'success': True,
-          'status_code': 200,
-          'drink': drink.long()
-        })
-    except Exception as e:
-        print(e)
-        abort(422)
+    recipes = request.get_json()['recipe']
+    # print(title, recipe)
+    # print(type(title), type(recipe))
+    drinks = []
+    for recipe in recipes:
+        drink = Drink(title=title, recipe=recipe)
+        try:
+            drink.insert()
+            drinks.append(drink)
+        except Exception as e:
+            print(e)
+            abort(422)
+    return jsonify({
+      'success': True,
+      'status_code': 200,
+      'drink': [drink.long() for drink in drinks]
+    })
 
 
 '''
@@ -164,25 +175,12 @@ def update_drink_detail(is_authenticated, drink_id):
     if not request.get_json():
         abort(400)
     # check that title and recipe is the only data in request
-    if len(request.get_json()) == 2 and request.get_json()['title'] and request.get_json()['recipe']:
+    if len(request.get_json()) == 2 and request.get_json()['recipe']:
         # get the title and recipe
-        new_title = request.get_json()['title']
+        # new_title = request.get_json()['title']
         new_recipe = request.get_json()['recipe']
         # update title
-        drink.title = new_title
-        # check if recipe has the correct keys
-        if 'name' in new_recipe and
-        'color' in new_recipe and
-        'parts' in new_recipe:
-            # check that each key has a value
-            if new_recipe['color'] and
-            new_recipe['name'] and
-            new_recipe['parts']:
-                drink.recipe = new_recipe
-            else:
-                abort(400)
-        else:
-            abort(400)
+        drink.title = new_recipe['name']
         # update the drink
         drink.update()
         # return the updated drink

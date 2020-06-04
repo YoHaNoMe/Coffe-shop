@@ -87,11 +87,13 @@ export class DrinksService {
       headers: new HttpHeaders()
         .set('Authorization',  `Bearer ${this.auth.activeJWT()}`)
     };
+    console.log(this.auth.activeJWT())
     return header;
   }
 
   getDrinks() {
     if (this.auth.can('get:drinks-detail')) {
+      console.log(this.getHeaders())
       this.http.get(this.url + '/drinks-detail', this.getHeaders())
       .subscribe((res: any) => {
         this.drinksToItems(res.drinks);
@@ -135,6 +137,7 @@ export class DrinksService {
   }
 
   drinksToItems( drinks: Array<Drink>) {
+    console.log(drinks)
     for (const drink of drinks) {
       this.items[drink.id] = drink;
     }
